@@ -13,7 +13,7 @@ import numpy as np
 # URL取得
 def get_api_urls(conn):
     cursor = conn.cursor()
-    cursor.execute("SELECT id,api_url FROM nft_products WHERE is_inactive = FALSE AND id >= 11;")
+    cursor.execute("SELECT id,api_url FROM nft_products WHERE is_inactive = FALSE;")
     api_urls = [{"id": row[0], "url": row[1]} for row in cursor.fetchall()]
     cursor.close()
     return api_urls
