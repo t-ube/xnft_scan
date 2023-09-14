@@ -219,10 +219,11 @@ def write2db(conn,product_id,nft_data,owner_data,gini_coefficient,owners_box_plo
     finally:
         cur.close()
 
-db_password: str = os.environ.get("SUPABASE_PASS")
-db_host: str = os.environ.get("SUPABASE_HOST")
 
 if __name__ == "__main__":
+    db_password: str = os.environ.get("SUPABASE_PASS")
+    db_host: str = os.environ.get("SUPABASE_HOST")
+
     # データベースに接続
     conn = psycopg2.connect(
         dbname="postgres",
