@@ -220,31 +220,30 @@ def write2db(conn,product_id,nft_data,owner_data,gini_coefficient,owners_box_plo
         cur.close()
 
 
-if __name__ == "__main__":
-    db_password: str = os.environ.get("SUPABASE_PASS")
-    db_host: str = os.environ.get("SUPABASE_HOST")
+db_password: str = os.environ.get("SUPABASE_PASS")
+db_host: str = os.environ.get("SUPABASE_HOST")
 
-    # データベースに接続
-    conn = psycopg2.connect(
-        dbname="postgres",
-        user="postgres",
-        password=db_password,
-        host=db_host,
-        port="5432"
-    )
-    api_urls = get_api_urls(conn)
-    print(api_urls)
-    if api_urls:
-        for item in api_urls:
-            data = fetch_data(item['url'])
-            if data:
-                write2db(conn,
-                item['id'],
-                get_nft_data(data),
-                get_owner_data2(data),
-                get_gini_coefficient(get_owner_data(data)),
-                compute_boxplot_parameters(get_owner_data(data))
-                )
-            else:
-                print('API Error:'+url)
-    conn.close()
+# データベースに接続
+conn = psycopg2.connect(
+    dbname="postgres",
+    user="postgres",
+    password=db_password,
+    host=db_host,
+    port="5432"
+)
+api_urls = get_api_urls(conn)
+print(api_urls)
+if api_urls:
+    for item in api_urls:
+        data = fetch_data(item['url'])
+        if data:
+            write2db(conn,
+            item['id'],
+            get_nft_data(data),
+            get_owner_data2(data),
+            get_gini_coefficient(get_owner_data(data)),
+            compute_boxplot_parameters(get_owner_data(data))
+            )
+        else:
+            print('API Error:'+url)
+conn.close()
