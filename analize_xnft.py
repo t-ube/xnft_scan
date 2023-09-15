@@ -52,14 +52,20 @@ def sampled_outliers(outliers):
     layer2 = remaining_outliers[split_indices:2*split_indices]
     layer3 = remaining_outliers[2*split_indices:]
 
+    def sample_from_layer(layer):
+        return random.choice(layer) if layer else None
+
     # 各層からランダムにデータをサンプリング
-    sampled_layer1 = random.choice(layer1)
-    sampled_layer2 = random.choice(layer2)
-    sampled_layer3 = random.choice(layer3)
+    sampled_layer1 = sample_from_layer(layer1)
+    sampled_layer2 = sample_from_layer(layer2)
+    sampled_layer3 = sample_from_layer(layer3)
 
     # サンプリング結果を結合
     stratified_sample = [min_value, sampled_layer1, sampled_layer2, sampled_layer3, max_value]
-    return stratified_sample
+     # Noneの値と重複したデータを除外
+    cleaned_sample = list(dict.fromkeys(filter(None, stratified_sample)))
+
+    return cleaned_sample
 
 # データセットの例を使用して箱ひげ図のパラメータを計算
 def compute_boxplot_parameters(data):
