@@ -20,17 +20,17 @@ class NFToken:
     def __init__(self):
         self.nft_id = ''
         self.issuer = ''
-        self.nft_taxon = 0
+        self.taxon = 0
         self.uri = ''
         self.url = ''
         self.meta = {}
         self.meta_image = ''
         self.meta_name = ''
 
-    def set(self, nft_id, issuer, nft_taxon, uri, url, metadata):
+    def set(self, nft_id, issuer, taxon, uri, url, metadata):
         self.nft_id = nft_id
         self.issuer = issuer
-        self.nft_taxon = nft_taxon
+        self.taxon = taxon
         self.uri = uri
         self.url = url
         self.meta = metadata
@@ -41,7 +41,7 @@ class NFToken:
         print('--------------------')
         print(self.nft_id)
         print(self.issuer)
-        print(self.nft_taxon)
+        print(self.taxon)
         print(self.uri)
         print(self.url)
         print(self.meta)
