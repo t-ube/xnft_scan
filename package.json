@@ -1,0 +1,44 @@
+{
+  "name": "xrpl-clio-scan",
+  "version": "1.0.0",
+  "description": "Load from clio server",
+  "scripts": {
+    "lint": "eslint",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean"
+  },
+  "author": "shirometeo",
+  "license": "MIT",
+  "dependencies": {
+    "xrpl": "^2.11.0",
+    "xrpl-accountlib": "^1.1.4",
+    "xrpl-client": "^1.7.0"
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts"
+  ],
+  "keywords": [
+    "xrp",
+    "xrpl",
+    "ledger",
+    "websocket",
+    "ws",
+    "client"
+  ],
+  "nodemonConfig": {
+    "ignore": [
+      "test/*"
+    ],
+    "delay": 750
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "devDependencies": {
+    "@types/node": "^12.12.55",
+    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/parser": "^4.25.0",
+    "eslint": "^7.27.0",
+    "typescript": "^4.1.0"
+  }
+}
