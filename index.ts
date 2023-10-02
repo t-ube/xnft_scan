@@ -1,4 +1,5 @@
-import { Client } from 'xrpl'
+import { Client as xrplClient } from 'xrpl'
+import { Client as pgClient } from 'pg';
 
 class LFTokenOffer {
   flags: number = 0;
@@ -17,8 +18,8 @@ class LFTokenOffer {
     this.ledgerIndex = ledgerIndex;
   }
 }
-  
-  class NFTokenAcceptOffer {
+
+class NFTokenAcceptOffer {
     nft_id: string = '';
     ledger_index: number = 0;
     date: number = 0;
@@ -98,29 +99,41 @@ function get_accept_tx(data_dict: any): void {
   }
 }
 
-async function main() {
-  const client = new Client('wss://s2-clio.ripple.com:51233/')
-  await client.connect()
+// supabase
+const db_password = process.env.SUPABASE_PASS
+const db_host = process.env.SUPABASE_HOST
+const pg_client = new pgClient({
+  user: 'postgres',
+  host: db_host,
+  database: 'postgres',
+  password: db_password,
+  port: 5432,
+});
 
-  const response = await client.request({
+async function main() {
+  await pg_client.connect();
+
+  const xrpl_client = new xrplClient('wss://s2-clio.ripple.com:51233/')
+  await xrpl_client.connect()
+
+  let res = await pg_client.query('SELECT nft_id FROM nftokens');
+  console.log(res.rows);
+  for (const row of res.rows) {
+    const nft_id = row.nft_id;
+    console.log(`Processing nft_id: ${nft_id}`);
+  }
+  /*
+  const response = await xrpl_client.request({
       command: "nft_history",
       nft_id: "00082710E84B2279489BC610EA4B4F1C8553CEE6C7D1786FAACE82C500000029"
   })
   get_accept_tx(response)
   const jsonStr = JSON.stringify(response, null, 2)
   console.log(jsonStr)
-
-  await client.disconnect()
-  /*
-  const fs = require('fs');
-  fs.writeFile('output.json', jsonStr, 'utf8', function(err:any) {
-      if (err) {
-        console.log("An error occured while writing JSON Object to File.");
-        return console.log(err);
-      }
-      console.log("JSON file has been saved.");
-  });
   */
+  await xrpl_client.disconnect()
+
+  await pg_client.end();
 }
 
 main()

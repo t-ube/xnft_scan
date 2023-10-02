@@ -10,6 +10,7 @@
   "author": "shirometeo",
   "license": "MIT",
   "dependencies": {
+    "pg": "^8.11.3",
     "xrpl": "^2.11.0",
     "xrpl-accountlib": "^1.1.4",
     "xrpl-client": "^1.7.0"
@@ -36,6 +37,7 @@
   "types": "dist/index.d.ts",
   "devDependencies": {
     "@types/node": "^12.12.55",
+    "@types/pg": "^8.10.3",
     "@typescript-eslint/eslint-plugin": "^4.25.0",
     "@typescript-eslint/parser": "^4.25.0",
     "eslint": "^7.27.0",
