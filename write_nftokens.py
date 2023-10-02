@@ -1,5 +1,7 @@
 import os
 import requests
+import psycopg2
+from psycopg2 import extras
 import json
 from urllib.parse import urlencode
 
