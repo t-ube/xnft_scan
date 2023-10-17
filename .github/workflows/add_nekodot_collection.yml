@@ -1,4 +1,4 @@
-name: Add collection
+name: Add NEKO DOT collection
 
 on:
   workflow_dispatch:
@@ -19,6 +19,8 @@ jobs:
       statuses: write
     runs-on: ubuntu-latest
     env:
+      TARGET_ISSUER: r4BEmxETRgp4UxVFM7zqQKFZzpVybdwDs7
+      TARGET_TAXON: 1
       SUPABASE_PASS: ${{secrets.SUPABASE_PASS}}
       SUPABASE_HOST: ${{secrets.SUPABASE_HOST}}
       BITHOMP_TOKEN: ${{secrets.BITHOMP_TOKEN}}

@@ -6,14 +6,16 @@ import json
 from urllib.parse import urlencode
 
 
-target_list = []
-item = {'issuer':'r4BEmxETRgp4UxVFM7zqQKFZzpVybdwDs7','taxon':1}
-target_list.append(item)
-
 # 環境変数からAPIトークンを取得
+target_issuer: str = os.environ.get("TARGET_ISSUER")
+target_taxon: int = int(os.environ.get("TARGET_TAXON"))
 bithomp_token: str = os.environ.get("BITHOMP_TOKEN")
 db_password: str = os.environ.get("SUPABASE_PASS")
 db_host: str = os.environ.get("SUPABASE_HOST")
+
+target_list = []
+item = {'issuer':target_issuer,'taxon':target_taxon}
+target_list.append(item)
 
 
 class NFToken:
